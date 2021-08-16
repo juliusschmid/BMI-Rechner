@@ -14,12 +14,8 @@ class ViewController: UIViewController {
     // MARK: -Outlets
     
     @IBOutlet weak var nameTextField: UITextField!
-    
     @IBOutlet weak var größeTextField: UITextField!
-    
     @IBOutlet weak var gewichtTextField: UITextField!
-    
-    
     @IBOutlet weak var hierKlickenButton: UIButton!
     
     
@@ -34,18 +30,72 @@ class ViewController: UIViewController {
     // MARK: -Funktionen/Actions
     @IBAction func hierKlickenButton_Tapped(_ sender: UIButton) {
         
-        
+        checkBmi(value: calculateBMI())
+    
     }
     
-func calculateBMI() {
+func calculateBMI() -> Double {
     
     let größe = Double(größeTextField.text!)!
     let gewicht = Double(gewichtTextField.text!)!
     
     
+    let größeQuadrat = größe * größe
+    let bmi = gewicht / größeQuadrat
     
+    return bmi
     
 }
+    
+    
+    func checkBmi(value: Double) {
+        
+        var message = ""
+        
+        if value <= 20 {
+           message = "Du hast Untergewicht"
+       } else if value >= 20 && value <= 25 {
+            message = "Du hast normal Gewicht"
+       }else if value >= 25 && value <= 30 {
+            message = "Du hast übergewicht"
+        }else {
+            message = "Du hast starkes Übergewicht"
+          }
+
+        //gleich , jedoch mit der switch case variante
+        
+        
+//        switch value {
+//        case 0...20: message = "Du hast Untergewicht"
+//        case 20...25 : message = "Du hast normal Gewicht"
+//        case 25...30 : message = "Du hast übergewicht"
+//        default: message = "Du hast starkes Übergewicht"
+//
+//        }
+        
+        
+        
+        
+        
+    erstelleAnzeige(message: message)
+    
+    }
+    
+    
+    
+    // MARK: - erstelle Anzeige
+    
+    func erstelleAnzeige(message: String) {
+        let alert = UIAlertController(title: "\(nameTextField.text!)", message: message,
+                                      preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "ok", style: .default) { action in }
+        
+        alert.addAction(action1)
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     
 func addTargetToTextFields() {
     
